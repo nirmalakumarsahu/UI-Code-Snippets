@@ -6,11 +6,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Bootstrap -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- MultiSelect CSS & JS library -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"
@@ -32,24 +35,20 @@
         <option value="HTML">HTML</option>
         <option value="XML">XML</option>
     </select>
-
     <script>
         $(document).ready(function () {
             $('#langOpt').multiselect({
                 includeSelectAllOption: true,
                 enableFiltering: true,
-                enableCaseInsensitiveFiltering: true
+                enableCaseInsensitiveFiltering: true,
+                nonSelectedText: 'Select User to Assign',
+                selectAllText: 'Select All Users',
+                numberDisplayed: 1,
+                buttonWidth: '200px',
+                allSelectedText: 'All user selected',
+                nSelectedText: 'user selected',
+                maxHeight: 200
             });
-
-            var options = [
-                { label: 'Option 1', title: 'Option 1', value: '1', selected: true },
-                { label: 'Option 2', title: 'Option 2', value: '2' },
-                { label: 'Option 3', title: 'Option 3', value: '3', selected: true },
-                { label: 'Option 4', title: 'Option 4', value: '4' },
-                { label: 'Option 5', title: 'Option 5', value: '5' },
-                { label: 'Option 6', title: 'Option 6', value: '6', disabled: true, selected: true }
-            ];
-            $('#langOpt').multiselect('dataprovider', options);
         });
     </script>
     <script
