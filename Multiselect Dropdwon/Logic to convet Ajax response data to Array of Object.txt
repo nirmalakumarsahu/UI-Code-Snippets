@@ -1,0 +1,26 @@
+Logic to convet Ajax response data to Array of Object/ JSON
+--------------------------------------------------------------------------------------------------
+var objects = []; 
+
+for (var i = 0; i < data.length; i++) {
+    var obj = {
+        // define properties for the object based on the data
+        id: data[i].id,
+        name: data[i].name,
+        description: data[i].description,
+        // ...
+    };
+
+    objects.push(obj); // add the object to the array
+}
+
+Output: 
+   
+var options = [
+                { label: 'Option 1', title: 'Option 1', value: '1', selected: true },
+                { label: 'Option 2', title: 'Option 2', value: '2' },
+                { label: 'Option 3', title: 'Option 3', value: '3', selected: true },
+                { label: 'Option 4', title: 'Option 4', value: '4' },
+                { label: 'Option 5', title: 'Option 5', value: '5' },
+                { label: 'Option 6', title: 'Option 6', value: '6', disabled: true, selected: true }
+            ];

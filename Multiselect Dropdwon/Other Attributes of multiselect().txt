@@ -1,0 +1,26 @@
+Other Attributes of multiselect()
+-------------------------------------------------
+enableFiltering: Set to true to enable filtering options in the dropdown list.
+buttonWidth: Set the width of the button that displays the selected options.
+nonSelectedText: Set the text to display when no options are selected.
+selectAllText: Set the text to display for the "Select All" option.
+nSelectedText: Set the text to display when multiple options are selected.
+allSelectedText: Set the text to display when all options are selected.
+numberDisplayed: Set the maximum number of options to display in the button before displaying nSelectedText.
+maxHeight: Set the maximum height of the dropdown list.
+includeSelectAllOption: Set to true to add a "Select All" option to the dropdown list.
+
+EX:
+$(document).ready(function() {
+    $('#myDropdown').multiselect({
+        enableFiltering: true,
+        buttonWidth: '200px',
+        nonSelectedText: 'Select options',
+        selectAllText: 'Select All',
+        nSelectedText: 'selected',
+        allSelectedText: 'All selected',
+        numberDisplayed: 3,
+        maxHeight: 200,
+        includeSelectAllOption: true
+    });
+});

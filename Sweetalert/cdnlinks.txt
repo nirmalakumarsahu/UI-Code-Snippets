@@ -1,0 +1,19 @@
+Version: 11.7.3
+--------------------------------
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+<link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+
+
+CDN LINK: https://www.jsdelivr.com/package/npm/sweetalert2
+
+sweetalert: https://sweetalert2.github.io/
+
+
+Version: 7.19.3
+-----------------------------
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@7.19.3/dist/sweetalert2.min.js"></script>
+<link href=" https://cdn.jsdelivr.net/npm/sweetalert2@7.19.3/dist/sweetalert2.min.css" rel="stylesheet">
+
+CDN LINK: https://www.jsdelivr.com/package/npm/sweetalert2 [Change the Version below]
+
+Example: https://github.com/sweetalert2/sweetalert2

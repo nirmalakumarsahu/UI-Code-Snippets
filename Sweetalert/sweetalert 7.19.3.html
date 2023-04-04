@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@7.19.3/dist/sweetalert2.min.js"></script>
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@7.19.3/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <button onclick="showalert()">Click Me</button>
+
+    <script>
+        function showalert() {
+            //Swal('Hello world!');
+            Swal({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this imaginary file!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it'
+            }).then((result) => {
+                if (result.value) {
+                    Swal(
+                        'Deleted!',
+                        'Your imaginary file has been deleted.',
+                        'success'
+                    )
+                    // For more information about handling dismissals please visit
+                    // https://sweetalert2.github.io/#handling-dismissals
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
