@@ -5,17 +5,16 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
     <!-- Bootstrap -->
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <!-- MultiSelect CSS & JS library -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"
         rel="stylesheet" />
 </head>
@@ -42,13 +41,18 @@
                 enableFiltering: true,
                 enableCaseInsensitiveFiltering: true,
                 nonSelectedText: 'Select User to Assign',
-                selectAllText: 'Select All Users',
+                selectAllText: 'Select All',
                 numberDisplayed: 1,
                 buttonWidth: '200px',
                 allSelectedText: 'All user selected',
                 nSelectedText: 'user selected',
                 maxHeight: 200
             });
+
+            $('.input-group-addon').children('i').remove();     
+            $('.input-group-addon').append('<i class="fa fa-search" aria-hidden="true"></i>');
+            $('.multiselect-clear-filter').children('i').remove();     
+            $('.multiselect-clear-filter').append('<i class="fa fa-times-circle-o" aria-hidden="true"></i>');
         });
     </script>
     <script
