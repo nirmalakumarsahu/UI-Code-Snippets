@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .filter-div {
+            border: 1px solid gray;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 10px;
+            width: 500px;
+            height: 120px;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="search-box">
+        <input type="text" id="search-input" placeholder="Search...">
+        <button id="filter-button"><i class="fa fa-filter"></i></button>
+      </div>
+    <div class="filter-div">
+        <label for="">Client : </label><select class="form-control" id="client-dropdown"
+            onchange="clientDropdownChange(this)">
+            <option value="-1" disabled="" selected="">Choose Client</option>
+            <option value="1">Cipla</option>
+            <option value="5">E Medical</option>
+            <option value="1004">Mask ORg</option>
+            <option value="2">Medicare</option>
+        </select>
+        <br>
+        <label for="">Project : </label><select class="form-control" id="client-dropdown"
+            onchange="clientDropdownChange(this)">
+            <option value="1001">New Client For Feedback</option>
+            <option value="1002">New Client For Feedback</option>
+            <option value="1005">New testing client 2</option>
+            <option value="1003">Org Cipla</option>
+            <option value="3">Ortho care</option>
+            <option value="4">Super B</option>
+        </select>
+        <br>
+        <label for="">Activity : </label><select class="form-control" id="client-dropdown"
+            onchange="clientDropdownChange(this)">
+            <option value="-1" disabled="" selected="">Choose Client</option>
+            <option value="1">Cipla</option>
+            <option value="5">E Medical</option>
+            <option value="1004">Mask ORg</option>
+            <option value="2">Medicare</option>
+        </select>
+        <label for="">Category : </label><select class="form-control" id="client-dropdown"
+            onchange="clientDropdownChange(this)">
+            <option value="1001">New Client For Feedback</option>
+            <option value="1002">New Client For Feedback</option>
+            <option value="1005">New testing client 2</option>
+            <option value="1003">Org Cipla</option>
+            <option value="3">Ortho care</option>
+            <option value="4">Super B</option>
+        </select>
+        <br>
+        <label for="">Task : </label><select class="form-control" id="client-dropdown"
+            onchange="clientDropdownChange(this)">
+            <option value="1001">New Client For Feedback</option>
+            <option value="1002">New Client For Feedback</option>
+            <option value="1005">New testing client 2</option>
+            <option value="1003">Org Cipla</option>
+            <option value="3">Ortho care</option>
+            <option value="4">Super B</option>
+        </select>
+        <br>
+        <label for="">From Date: </label> <input type="date" name="from-date" id="">
+        <label for="">To Date: </label> <input type="date" name="to-date" id="">
+    </div>
+
+    <script>
+        $('.filter-div').hide();
+
+        $('#filter-button').on('click', function(){
+            $('.filter-div').toggle();
+        });
+       
+    </script>
+</body>
+
+</html>

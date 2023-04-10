@@ -13,14 +13,20 @@
     <div id="timer">
         <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
     </div>
+   <div id="editable-time">
+        <input type="time" id="time-edit"> 
+        <button id="reset">Reset</button>
+   </div>
 
     <button id="start">Start</button>
     <button id="pause">Pause</button>
     <button id="stop">Stop</button>
 
+    <br>
 </body>
 <script>
     $(document).ready(function () {
+        $("#editable-time").hide();
         var seconds = 0, minutes = 0, hours = 0;
         var t;
 
@@ -65,12 +71,18 @@
             clearTimeout(t);
             $("#start").prop('disabled', true);
             $("#pause").prop('disabled', true);
-            // seconds = 0;
-            // minutes = 0;
-            // hours = 0;
-            // $('#hours').text("00");
-            // $('#minutes').text("00");
-            // $('#seconds').text("00");
+            $("#timer").hide();
+            $("#editable-time").show();
+
+            hours = $('#hours').text();
+            minutes = $('#minutes').text();
+            $("#time-edit").val(hours+":"+minutes);
+        });
+
+        /* reset button */
+        $('#reset').click(function () {
+            console.log("time - "+hours+", "+minutes)
+            $("#time-edit").val(hours+":"+minutes);
         });
     });
 

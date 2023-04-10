@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .qtySelector {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .decreaseQty,
+        .increaseQty {
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .qtyValue {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="qtySelector text-center">
+        <i class="fa fa-minus decreaseQty"></i>
+        <input type="text" class="qtyValue" value="1" />
+        <i class="fa fa-plus increaseQty"></i>
+    </div>
+
+    <script>
+        var minVal = 1, maxVal = 20;
+        var taskCompleted = [1, 2, 5, 6, 7];
+
+        $(".increaseQty").on('click', function () {
+            var value = $(".qtyValue").val();
+            if (value < maxVal) {
+                value++;
+                while(taskCompleted.includes(value)) {
+                    value++;
+                }
+            }
+            $(".qtyValue").val(value);
+        });
+
+        $(".decreaseQty").on('click', function () {
+            var value = $(".qtyValue").val();
+            if (value > 1) {
+                value--;
+                while(taskCompleted.includes(value) && value > 1) {
+                    value--;
+                }
+            }
+            $(".qtyValue").val(value);
+        });
+    </script>
+    <style>
+
+    </style>
+</body>
+
+</html>
