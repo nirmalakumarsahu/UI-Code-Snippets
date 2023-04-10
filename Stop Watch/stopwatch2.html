@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="timer-display-id">
+        <h1>Timer </h1>
+        <!-- <p id="timer">00:00:00 </p> -->
+        <input type="text" id="timer" value="00:00:00">
+        <button id="start-timer" onclick="start()">Start </button>
+        <button id="start-timer" onclick="">Pause </button>
+        <button id="stop-timer" onclick="stop()">Stop </button>
+    </div>
+</body>
+<script>
+    const ret = document.getElementById("timer");
+    const startBtn = document.querySelector("#start-timer");
+
+    let counter = 0;
+    let interval;
+
+    function stop() {
+        clearInterval(interval);
+        startBtn.disabled = false;
+    }
+
+    function convertSec(cnt) {
+        let sec = cnt % 60;
+        let min = Math.floor(cnt / 60);
+        if (sec < 10) {
+            if (min < 10) {
+                return "0" + min + ":0" + sec;
+            } else {
+                return min + ":0" + sec;
+            }
+        } else if ((min < 10) && (sec >= 10)) {
+            return "0" + min + ":" + sec;
+        } else {
+            return min + ":" + sec;
+        }
+    }
+
+    function start() {
+        startBtn.disabled = true;
+        interval = setInterval(function () {
+            ret.setAttribute("value", convertSec(counter++)); // timer start counting here...
+        }, 1000);
+    }
+</script>
+
+</html>

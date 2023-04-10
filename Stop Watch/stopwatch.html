@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="timer">
+        <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+    </div>
+
+    <button id="start">Start</button>
+    <button id="pause">Pause</button>
+    <button id="stop">Stop</button>
+
+</body>
+<script>
+    $(document).ready(function () {
+        var seconds = 0, minutes = 0, hours = 0;
+        var t;
+
+        function add() {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+
+            $('#hours').text(hours < 10 ? "0" + hours : hours);
+            $('#minutes').text(minutes < 10 ? "0" + minutes : minutes);
+            $('#seconds').text(seconds < 10 ? "0" + seconds : seconds);
+
+            timer();
+        }
+
+        function timer() {
+            t = setTimeout(add, 1000);
+        }
+
+        /* Start button */
+        $('#start').click(function () {
+            $("#start").prop('disabled', true);
+            $("#pause").prop('disabled', false);
+            timer();
+        });
+
+        /* Pause button */
+        $('#pause').click(function () {
+            $("#start").prop('disabled', false);
+            $("#pause").prop('disabled', true);
+            clearTimeout(t);
+        });
+
+        /* Stop button */
+        $('#stop').click(function () {
+            clearTimeout(t);
+            $("#start").prop('disabled', true);
+            $("#pause").prop('disabled', true);
+            // seconds = 0;
+            // minutes = 0;
+            // hours = 0;
+            // $('#hours').text("00");
+            // $('#minutes').text("00");
+            // $('#seconds').text("00");
+        });
+    });
+
+</script>
+
+</html>
