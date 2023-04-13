@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main-parent">
+        <div class="timer">
+            <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+
+            <i class="fa fa-play-circle fa-lg start"  style="color: #0cb69f;"></i>
+            <i class="fa fa-pause-circle fa-lg pause" style="color: #ecbc2c;"></i>
+            <i class="fa fa-stop-circle fa-lg stop" style="color: #f2994a;"></i>
+        </div>
+        <div class="editable-time">
+            <input type="time" class="time-edit">
+            <i class="fa fa-refresh fa-lg reset" style="color: #f2994a;"></i>
+        </div>
+    </div>
+    <br>
+    <div class="main-parent">
+        <div class="timer">
+            <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+
+            <i class="fa fa-play-circle fa-2x start"  style="color: #0cb69f;"></i>
+            <i class="fa fa-pause-circle fa-lg pause" style="color: #ecbc2c;"></i>
+            <i class="fa fa-stop-circle fa-lg stop" style="color: #f2994a;"></i>
+        </div>
+        <div class="editable-time">
+            <input type="time" class="time-edit">
+            <i class="fa fa-refresh fa-lg reset" style="color: #f2994a;"></i>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $(".editable-time").hide();
+        var seconds = 0, minutes = 0, hours = 0;
+        var t;
+
+        function add(parent) {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+          
+            parent.children('.hours').text(hours < 10 ? "0" + hours : hours);
+            parent.children('.minutes').text(minutes < 10 ? "0" + minutes : minutes);
+            parent.children('.seconds').text(seconds < 10 ? "0" + seconds : seconds);
+
+            timer(parent);
+        }
+
+        function timer(parent) {
+            t = setTimeout(function(){
+                add(parent);
+            }, 1000);
+        }
+
+        /* Start button */
+        $('.start').click(function () {
+            var parent = $(this).parent();
+            // console.log(parent.children('.hours').text(10));
+            parent.children(".start").prop('disabled', true);
+            parent.children(".pause").prop('disabled', false);
+            timer(parent);
+        });
+
+        /* Pause button */
+        $('.pause').click(function () {
+            var parent = $(this).parent();
+            parent.children(".start").prop('disabled', false);
+            parent.children(".pause").prop('disabled', true);
+            clearTimeout(t);
+        });
+
+        /* Stop button */
+        $('.stop').click(function () {
+            var parent = $(this).parent();
+            clearTimeout(t);
+            parent.children(".start").prop('disabled', true);
+            parent.children(".pause").prop('disabled', true);
+            var grandParent = parent.parent();
+            grandParent.children(".timer").hide();
+            grandParent.children(".editable-time").show();
+
+            hours = parent.children('.hours').text();
+            minutes = parent.children('.minutes').text();
+
+            var grandParentSecondChild =  grandParent.children(".editable-time");
+            grandParentSecondChild.children(".time-edit").val(hours + ":" + minutes);
+        });
+
+        /* reset button */
+        $('.reset').click(function () {
+            var parent = $(this).parent();
+            var grandParent = parent.parent();
+            var grandParentSecondChild =  grandParent.children(".editable-time");
+            console.log("time - " + hours + ", " + minutes)
+            grandParentSecondChild.children(".time-edit").val(hours + ":" + minutes);
+        });
+    });
+
+</script>
+
+</html>

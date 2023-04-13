@@ -6,53 +6,92 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="timer-display-id">
-        <h1>Timer </h1>
-        <!-- <p id="timer">00:00:00 </p> -->
-        <input type="text" id="timer" value="00:00:00">
-        <button id="start-timer" onclick="start()">Start </button>
-        <button id="start-timer" onclick="">Pause </button>
-        <button id="stop-timer" onclick="stop()">Stop </button>
+    <div class="main-parent">
+        <div id="timer">
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+
+            <i class="fa fa-play-circle fa-lg" id="start" style="color: #0cb69f;"></i>
+            <i class="fa fa-pause-circle fa-lg" id="pause" style="color: #ecbc2c;"></i>
+            <i class="fa fa-stop-circle fa-lg" id="stop" style="color: #f2994a;"></i>
+        </div>
+        <div id="editable-time">
+            <input type="time" id="time-edit">
+            <i class="fa fa-refresh fa-lg" id="reset" style="color: #f2994a;"></i>
+        </div>
     </div>
+
+
+
+
+    <br>
 </body>
 <script>
-    const ret = document.getElementById("timer");
-    const startBtn = document.querySelector("#start-timer");
+    $(document).ready(function () {
+        $("#editable-time").hide();
+        var seconds = 0, minutes = 0, hours = 0;
+        var t;
 
-    let counter = 0;
-    let interval;
-
-    function stop() {
-        clearInterval(interval);
-        startBtn.disabled = false;
-    }
-
-    function convertSec(cnt) {
-        let sec = cnt % 60;
-        let min = Math.floor(cnt / 60);
-        if (sec < 10) {
-            if (min < 10) {
-                return "0" + min + ":0" + sec;
-            } else {
-                return min + ":0" + sec;
+        function add() {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
             }
-        } else if ((min < 10) && (sec >= 10)) {
-            return "0" + min + ":" + sec;
-        } else {
-            return min + ":" + sec;
-        }
-    }
 
-    function start() {
-        startBtn.disabled = true;
-        interval = setInterval(function () {
-            ret.setAttribute("value", convertSec(counter++)); // timer start counting here...
-        }, 1000);
-    }
+            $('#hours').text(hours < 10 ? "0" + hours : hours);
+            $('#minutes').text(minutes < 10 ? "0" + minutes : minutes);
+            $('#seconds').text(seconds < 10 ? "0" + seconds : seconds);
+
+            timer();
+        }
+
+        function timer() {
+            t = setTimeout(add, 1000);
+        }
+
+        /* Start button */
+        $('#start').click(function () {
+            $("#start").prop('disabled', true);
+            $("#pause").prop('disabled', false);
+            timer();
+        });
+
+        /* Pause button */
+        $('#pause').click(function () {
+            $("#start").prop('disabled', false);
+            $("#pause").prop('disabled', true);
+            clearTimeout(t);
+        });
+
+        /* Stop button */
+        $('#stop').click(function () {
+            clearTimeout(t);
+            $("#start").prop('disabled', true);
+            $("#pause").prop('disabled', true);
+            $("#timer").hide();
+            $("#editable-time").show();
+
+            hours = $('#hours').text();
+            minutes = $('#minutes').text();
+            $("#time-edit").val(hours + ":" + minutes);
+        });
+
+        /* reset button */
+        $('#reset').click(function () {
+            console.log("time - " + hours + ", " + minutes)
+            $("#time-edit").val(hours + ":" + minutes);
+        });
+    });
+
 </script>
 
 </html>
