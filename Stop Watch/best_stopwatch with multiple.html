@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        .stopwatch-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stopwatch {
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .display {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stopwatch-container">
+        <div class="stopwatch">
+            <div class="display">00:00</div>
+            <button class="start">Start</button>
+            <button class="stop" >Stop</button>
+            <button class="pause" onclick="">Pause</button>
+        </div>
+        <div class="stopwatch">
+            <div class="display">00:00</div>
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="pause" data-json='{
+                "taskUUID":"39ab0ed6-c272-4b84-b14b-2115906931ba",
+                "totalSubmitted":1,
+                "targeted":10
+            }, {
+            "taskUUID":"39ab0ed6-c272-4b84-b14b-2115906931ba",
+            "totalSubmitted":1,
+            "targeted":10
+        }'>Pause</button>
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        var stopwatches = $('.stopwatch');
+
+        stopwatches.each(function () {
+            var stopwatch = $(this);
+            var display = stopwatch.find('.display');
+            var seconds = 0;
+            var timer;
+
+            function updateTime() {
+                seconds++;
+                var minutes = Math.floor(seconds / 60);
+                var hours = Math.floor(minutes / 60);
+                display.text(pad(hours) + ':' + pad(minutes % 60) + ':' + pad(seconds % 60));
+            }
+
+            function pad(number) {
+                return ('0' + number).slice(-2);
+            }
+
+
+            stopwatch.find('.start').click(function () {
+                timer = setInterval(updateTime, 1000);
+            });
+
+            stopwatch.find('.stop').click(function () {
+                clearInterval(timer);
+
+            });
+
+            stopwatch.find('.pause').click(function () {
+                clearInterval(timer);
+                // var data = JSON.stringify($(this).attr('data'));
+               
+                var jsonData = $(this).data('json');
+                var jsonObject = JSON.parse(JSON.stringify(jsonData));
+                console.log(jsonObject);
+                console.log(jsonObject.taskUUID);
+
+            });
+
+        });
+
+        function pause() {
+            console.log("pause");
+
+        }
+    });
+
+
+
+</script>
+
+</html>

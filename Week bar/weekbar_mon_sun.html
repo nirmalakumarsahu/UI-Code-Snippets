@@ -56,8 +56,8 @@
             var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
            
-            var today = new Date();
-            var currentDay = today.getDay()-1; 
+            var today = new Date("2023-04-17");
+            var currentDay = today.getDay()!=0?today.getDay() - 1:today.getDay()+6; 
             var currentDate = today.getDate(); 
             var currentMonth = today.getMonth();
 

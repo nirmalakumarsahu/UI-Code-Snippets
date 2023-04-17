@@ -34,7 +34,7 @@
 
 <body>
     <div class="qtySelector text-center">
-        <i class="fa fa-minus-circle decreaseQty" style="color: #868686;"></i>
+        <i class="fa fa-minus-circle decreaseQty" onclick="getvalue()" style="color: #868686;"></i>
         <input type="text" class="qtyValue" value="1" />
         <i class="fa fa-plus-circle increaseQty" style="color: #09b59e;"></i>
     </div>
@@ -64,6 +64,10 @@
             }
             $(this).next().val(value);
         });
+
+        function getvalue() {
+            console.log("------------");
+        }
     </script>
     <style>
 
