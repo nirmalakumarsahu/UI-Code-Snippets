@@ -42,6 +42,10 @@
             font-size: 22px;
             font-weight: bold;
         }
+
+        .active-date {
+	        color: #07b199;
+        }
     </style>
 </head>
 
@@ -56,12 +60,13 @@
             var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
            
-            var today = new Date("2023-04-17");
+            var today = new Date();
             var currentDay = today.getDay()!=0?today.getDay() - 1:today.getDay()+6; 
             var currentDate = today.getDate(); 
             var currentMonth = today.getMonth();
+            var currentYear = today.getFullYear();
 
-            console.log("currentDay - "+currentDay+", currentDate - "+currentDate+", currentMonth- "+currentMonth);
+            console.log("currentDay - "+currentDay+", currentDate - "+currentDate+", currentMonth- "+currentMonth+" "+currentYear);
             
             for (var i = 0; i <7; i++) {
                 var dateStr = i==currentDay?currentDate+" "+months[currentMonth]:currentDate-(currentDay-i)+" "+months[currentMonth];
@@ -74,11 +79,19 @@
                 // else if(i<currentDay) {
                 //     dateStr = currentDate-(currentDay-i)+" "+months[currentMonth];
                 // }
-
-                var day = $('<div class="day day-'+i+'"><div class="day-name">' + days[i] + '</div><div class="date">' +dateStr+ '</div></div>');
+                var fullDate = currentYear+"-"+(currentMonth+1)+"-"+(i==currentDay?currentDate:currentDate-(currentDay-i));
+                console.log(" ---- "+fullDate);
+                var day = $('<div class="day day-'+i+'" onclick="dateChange(this)" recentDate="'+fullDate+'"><div class="day-name">' + days[i] + '</div><div class="date">' +dateStr+ '</div></div>');
                 $('#weekdays').append(day);
-            }            
+            }          
+            $('.day-' + currentDay).addClass("active-date");  
         });
+
+        function dateChange(selectedDate) {
+            $('.day').removeClass("active-date");
+            $(selectedDate).addClass("active-date");
+            console.log($(selectedDate).attr('recentDate'));
+        }
 
     </script>
 </body>
