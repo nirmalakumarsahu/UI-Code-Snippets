@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <style>
+        #weekdays {
+            display: flex;
+            flex-wrap: wrap;
+            width: 70%;
+        }
+
+        .day {
+            width: calc(100%/7);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            font-size: 20px;
+        }
+
+        .data_row {
+            background: #d4f3ee;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .task_set {
+            width: 20%;
+            margin: auto;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .day-name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .active-date {
+            color: #07b199;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="data_row">
+        <div class="task_set">Tasks</div>
+        <div id="weekdays" class="week_days"></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            var today = new Date();
+            console.log(today.getDay());
+            for (var i = 0; i < 7; i++) {
+                var date = new Date(today);
+                (today.getDay()!=0)?date.setDate(today.getDate() +  (i+1) - today.getDay()):date.setDate(today.getDate() - ((today.getDay() + (6-i)) % 7));
+                var dateStr = date.getDate() + " " + months[date.getMonth()];
+                var fullDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                var day = $('<div class="day day-' + date.getDay() + '" onclick="dateChange(this)" recentDate="' + fullDate + '"><div class="day-name">' + days[i] + '</div><div class="date">' + dateStr + '</div></div>');
+                $('#weekdays').append(day);
+            }
+            $('.day-' + today.getDay()).addClass("active-date");
+        });
+
+        function dateChange(selectedDate) {
+            $('.day').removeClass("active-date");
+            $(selectedDate).addClass("active-date");
+            console.log($(selectedDate).attr('recentDate'));
+        }
+
+    </script>
+</body>
+
+</html>

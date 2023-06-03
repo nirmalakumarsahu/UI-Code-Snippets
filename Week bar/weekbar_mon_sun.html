@@ -44,7 +44,7 @@
         }
 
         .active-date {
-	        color: #07b199;
+            color: #07b199;
         }
     </style>
 </head>
@@ -59,32 +59,83 @@
         $(document).ready(function () {
             var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-           
-            var today = new Date();
-            var currentDay = today.getDay()!=0?today.getDay() - 1:today.getDay()+6; 
-            var currentDate = today.getDate(); 
+                            
+            var today = new Date("2023-06-26");
+            var currentDay = today.getDay() != 0 ? today.getDay() - 1 : today.getDay() + 6;
+            var currentDate = today.getDate();
             var currentMonth = today.getMonth();
             var currentYear = today.getFullYear();
 
-            console.log("currentDay - "+currentDay+", currentDate - "+currentDate+", currentMonth- "+currentMonth+" "+currentYear);
-            
-            for (var i = 0; i <7; i++) {
-                var dateStr = i==currentDay?currentDate+" "+months[currentMonth]:currentDate-(currentDay-i)+" "+months[currentMonth];
-                // if(i>currentDay){
-                //     dateStr = currentDate-(currentDay-i)+" "+months[currentMonth];
-                // }
-                // else if(i==currentDay)  {
-                //     dateStr = currentDate+" "+months[currentMonth];
-                // }
-                // else if(i<currentDay) {
-                //     dateStr = currentDate-(currentDay-i)+" "+months[currentMonth];
-                // }
-                var fullDate = currentYear+"-"+(currentMonth+1)+"-"+(i==currentDay?currentDate:currentDate-(currentDay-i));
-                console.log(" ---- "+fullDate);
-                var day = $('<div class="day day-'+i+'" onclick="dateChange(this)" recentDate="'+fullDate+'"><div class="day-name">' + days[i] + '</div><div class="date">' +dateStr+ '</div></div>');
+            console.log("currentDay - " + currentDay + ", currentDate - " + currentDate + ", currentMonth- " + currentMonth + " " + currentYear);
+
+            for (var i = 0; i < 7; i++) {
+                //var dateStr = i==currentDay?currentDate+" "+months[currentMonth]:currentDate-(currentDay-i)+" "+months[currentMonth];
+                var dateStr = null;
+                var fullDate = null;
+                if (i > currentDay) {
+                    console.log("1"+currentDay);
+                    console.log((currentDate - (currentDay - i)));
+                    dateStr = currentDate - (currentDay - i) + " " + months[currentMonth];
+                }
+                else if (i == currentDay) {
+                    console.log("2");
+                    dateStr = currentDate + " " + months[currentMonth];
+                }
+                else if (i < currentDay) {
+                    console.log((currentDate - (currentDay - i)));
+                    if((currentDate - (currentDay - i))<=0) {
+                            console.log("3");
+                            var previousDate = new Date(today);
+                            
+                            previousDate.setDate(today.getDate() - ((today.getDay() + (6-i)) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                            
+                        /*if(i==0) {
+                            previousDate.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                        }
+                        else if(i==1) {
+                            previousDate.setDate(today.getDate() - ((today.getDay() + 5) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                        }
+                        else if(i==2) {
+                            previousDate.setDate(today.getDate() - ((today.getDay() + 4) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                        }
+                        else if(i==3) {
+                            previousDate.setDate(today.getDate() - ((today.getDay() + 3) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                        }
+                        else if(i==4) {
+                            previousDate.setDate(today.getDate() - ((today.getDay() + 2) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                        }
+                        else if(i==5) {
+                            previousDate.setDate(today.getDate() - ((today.getDay() + 1) % 7));
+                            dateStr = previousDate.getDate()+" "+months[currentMonth-1];
+                            fullDate = currentYear +"-"+currentMonth+"-"+previousDate.getDate();
+                        }*/
+                    }
+                    else {
+                        console.log("3");
+                        dateStr = currentDate - (currentDay - i) + " " + months[currentMonth];
+                    }
+                }
+                
+                if(fullDate==null) {
+                    fullDate = currentYear + "-" + (currentMonth + 1) + "-" + (i == currentDay ? currentDate : currentDate - (currentDay - i));
+                }
+                
+                var day = $('<div class="day day-' + i + '" onclick="dateChange(this)" recentDate="' + fullDate + '"><div class="day-name">' + days[i] + '</div><div class="date">' + dateStr + '</div></div>');
                 $('#weekdays').append(day);
-            }          
-            $('.day-' + currentDay).addClass("active-date");  
+            }
+            $('.day-' + currentDay).addClass("active-date");
         });
 
         function dateChange(selectedDate) {

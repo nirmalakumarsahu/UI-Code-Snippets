@@ -57,6 +57,14 @@
             //$("#loading-mask").hide(); //For after load hide
             setTimeout(removeLoader, 2000);  //For wait 2 sec. to hide
         });
+
+        /*$(window).on('load', function () {
+    	    setTimeout(function(){
+        	    $("#loading-mask").fadeOut(500, function () {
+            	    $("#loading-mask").hide(); 
+           	    });
+            }, 1000);
+	    });*/
         function removeLoader() {
             $("#loading-mask").fadeOut(500, function () {
                 $("#loading-mask").hide(); 
