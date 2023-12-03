@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../JS/moment.min.js"></script>
+    <script src="../JS/moment-timezone-with-data.js"></script>
     <style>
         #weekdays {
             display: flex;
@@ -60,10 +62,9 @@
             var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-            var today = new Date();
-            console.log(today.getDay());
+            var today = moment().toDate();   ;
             for (var i = 0; i < 7; i++) {
-                var date = new Date(today);
+                var date = moment(today).toDate();
                 (today.getDay()!=0)?date.setDate(today.getDate() +  (i+1) - today.getDay()):date.setDate(today.getDate() - ((today.getDay() + (6-i)) % 7));
                 var dateStr = date.getDate() + " " + months[date.getMonth()];
                 var fullDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
