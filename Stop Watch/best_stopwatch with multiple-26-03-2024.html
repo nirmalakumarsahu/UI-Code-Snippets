@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        .stopwatch-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stopwatch {
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .display {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stopwatch-container">
+        <div class="stopwatch">
+            <div class="display">00:00</div>
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="pause">Pause</button>
+        </div>
+        <div class="stopwatch">
+            <div class="display">00:00</div>
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="pause">Pause</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var stopwatches = $('.stopwatch');
+            var timers = [];
+
+            stopwatches.each(function () {
+                var stopwatch = $(this);
+                var display = stopwatch.find('.display');
+                var seconds = 0;
+                var timer;
+
+                function updateTime() {
+                    seconds++;
+                    var minutes = Math.floor(seconds / 60);
+                    var hours = Math.floor(minutes / 60);
+                    display.text(pad(hours) + ':' + pad(minutes % 60) + ':' + pad(seconds % 60));
+                }
+
+                function pad(number) {
+                    return ('0' + number).slice(-2);
+                }
+
+                function startTimer() {
+                    timer = setInterval(updateTime, 1000);
+                    timers.push(timer);
+                }
+
+                function stopTimer() {
+                    clearInterval(timer);
+                    timers = timers.filter(t => t !== timer);
+                }
+
+                function pauseTimer() {
+                    clearInterval(timer);
+                }
+
+                stopwatch.find('.start').click(function () {
+                    startTimer();
+                });
+
+                stopwatch.find('.stop').click(function () {
+                    stopTimer();
+                });
+
+                stopwatch.find('.pause').click(function () {
+                    pauseTimer();
+                });
+
+                // Pause timer when tab is not visible
+                document.addEventListener("visibilitychange", function () {
+                    if (document.visibilityState === 'hidden') {
+                        pauseTimer();
+                    } else {
+                        startTimer();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

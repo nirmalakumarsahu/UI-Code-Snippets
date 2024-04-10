@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Background Timer</title>
+    <style>
+        .timer-container {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="timer-container">
+        <div id="timer">00:00:00</div>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+    </div>
+
+    <script>
+        let timerInterval;
+        let startTime;
+        let elapsedTime = 0;
+        let timerIsRunning = false;
+        const localStorageKey = 'backgroundTimer';
+
+        function startTimer() {
+            if (!timerIsRunning) {
+                console.log("startTime - " + startTime);
+                console.log("elapsedTime - " + elapsedTime);
+                console.log("Date - " + Date.now());
+                startTime = Date.now() - elapsedTime;
+                timerIsRunning = true;
+                timerInterval = setInterval(updateTime, 1000);
+                saveStartTimeToLocalStorage();
+            }
+        }
+
+        function stopTimer() {
+            if (timerIsRunning) {
+                clearInterval(timerInterval);
+                timerIsRunning = false;
+                saveElapsedTimeToLocalStorage();
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerIsRunning = false;
+            elapsedTime = 0;
+            displayTime(elapsedTime);
+            clearLocalStorage();
+        }
+
+        function updateTime() {
+            elapsedTime = Date.now() - startTime;
+            console.log(elapsedTime);
+            displayTime(elapsedTime);
+        }
+
+        function displayTime(milliseconds) {
+            let seconds = Math.floor(milliseconds / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+
+            seconds %= 60;
+            minutes %= 60;
+            hours %= 24;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            hours = hours < 10 ? '0' + hours : hours;
+
+            document.getElementById('timer').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function saveStartTimeToLocalStorage() {
+            localStorage.setItem(localStorageKey, JSON.stringify({ startTime, elapsedTime }));
+        }
+
+        function saveElapsedTimeToLocalStorage() {
+            localStorage.setItem(localStorageKey, JSON.stringify({ startTime, elapsedTime }));
+        }
+
+        function loadTimerFromLocalStorage() {
+            console.log("loadTimerFromLocalStorage");
+            const data = JSON.parse(localStorage.getItem(localStorageKey));
+            console.log(data)
+            console.log(timerIsRunning)
+            if (data) {
+                console.log("IF _____ ")
+                startTime = data.startTime;
+                elapsedTime = data.elapsedTime;
+                if (timerIsRunning) {
+                    stopTimer();
+                    startTimer();
+                } else {
+                    displayTime(elapsedTime);
+                }
+            }
+        }
+
+        function clearLocalStorage() {
+            localStorage.removeItem(localStorageKey);
+        }
+
+        document.getElementById('start').addEventListener('click', startTimer);
+        document.getElementById('stop').addEventListener('click', stopTimer);
+        document.getElementById('reset').addEventListener('click', resetTimer);
+
+        // Load the timer from localStorage if it exists
+        // loadTimerFromLocalStorage();
+    </script>
+</body>
+
+</html>
